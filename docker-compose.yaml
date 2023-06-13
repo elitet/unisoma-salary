@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+      SPRING_CONFIG_LOCATION: classpath:/application.yaml
+      SERVER_PORT: 3000
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/unisoma
+      SPRING_DATASOURCE_USERNAME: unisoma-api
+      SPRING_DATASOURCE_PASSWORD: unisoma-api@2023
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: unisoma
+      POSTGRES_USER: unisoma-api
+      POSTGRES_PASSWORD: unisoma-api@2023
+    ports:
+      - 5432:5432
